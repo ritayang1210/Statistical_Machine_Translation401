@@ -32,18 +32,23 @@ function outSentence = preprocess( inSentence, language )
   % TODO: your code here
   %    e.g., outSentence = regexprep( outSentence, 'TODO', 'TODO');
   % dashes between parentheses ? 
-  possessives = cellstr(['\.$'; '\('; '\)'; ':'; ';'; '-'; '\+'; '<'; '>'; '\=', '\.{3,}', '\?+', '\!+']);
+  possessives = cellstr(['\.$'; '\('; '\)'; ':'; ';'; '-'; '\+'; '<'; '>'; '\='; '\.{3,}'; '\?+'; '\!+'; '"']);
   for i = 1:length(possessives)
     possessive = possessives{i};
     outSentence = regexprep(outSentence, strcat('(', possessive, ')'), strcat(' $1 '));
   end
+  
 
   switch language
    case 'e'
-    % TODO: your code here
-
+    outSentence = regexprep(outSentence, '(\S+s)''\s', strcat(' $1 '' '));
+    outSentence = regexprep(outSentence, strcat('''s'), strcat(' ''s '));
    case 'f'
-    % TODO: your code here
+    outSentence = regexprep(outSentence, strcat('\sl''', strcat(' l'' '));
+    outSentence = regexprep(outSentence, strcat('\s(\S'')', strcat(' $1 '));
+    outSentence = regexprep(outSentence, strcat('\squ''', strcat(' qu'' '));
+    outSentence = regexprep(outSentence, strcat('(\S+'')on\s', strcat(' $1 on '));
+    outSentence = regexprep(outSentence, strcat('(\S+'')il\s', strcat(' $1 il '));
 
   end
 

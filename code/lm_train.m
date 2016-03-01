@@ -49,7 +49,27 @@ for iFile=1:length(DD)
     words = strsplit(' ', processedLine );
     
     % TODO: THE STUDENT IMPLEMENTS THE FOLLOWING
+    for i = 1:length(words)
+        word = words{i}
+        if length(regexp(word, '^\s*$')) < 1
+            if ~isfield(LM.uni, word)
+                LM.uni = setfield(LM.uni, word, 0)
+            end
+            LM.uni = setfield(LM.uni, word, getfield(LM.uni, word) + 1)
 
+            if i < length(DD)
+                nextWord = words{i + 1}
+                if ~isfield(LM.bi, word)
+                    LM.bi = setfield(LM.bi, word, struct())
+                end
+                wordField = getfield(LM.bi, word)
+                if ~isfield(wordField, nextWord)
+                    wordField = setfield(wordField, nextWord, 0)
+                end
+                wordField = setfield(wordField, nextWord, getfield(wordField, nextWord) + 1)
+            end
+        end
+    end
     % TODO: THE STUDENT IMPLEMENTED THE PRECEDING
   end
 end
