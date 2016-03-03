@@ -57,7 +57,7 @@ for iFile=1:length(DD)
             end
             LM.uni = setfield(LM.uni, word, getfield(LM.uni, word) + 1)
 
-            if i < length(DD)
+            if i < length(words)
                 nextWord = words{i + 1}
                 if ~isfield(LM.bi, word)
                     LM.bi = setfield(LM.bi, word, struct())
