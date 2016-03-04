@@ -50,6 +50,43 @@ function outSentence = preprocess( inSentence, language )
     outSentence = regexprep(outSentence, strcat('(\S+'')on\s', strcat(' $1 on '));
     outSentence = regexprep(outSentence, strcat('(\S+'')il\s', strcat(' $1 il '));
 
+  outSentence = strcat(CSC401_A2_DEFNS.SENTSTART, ' ', outSentence);
+  outSentence = strcat(outSentence, ' ', CSC401_A2_DEFNS.SENTEND);
+
+  outSentence = regexprep(outSentence, '\*', CSC401_A2_DEFNS.STAR);
+  outSentence = regexprep(outSentence, ',', CSC401_A2_DEFNS.COMMA);
+  outSentence = regexprep(outSentence, '\.', CSC401_A2_DEFNS.PERIOD);
+  outSentence = regexprep(outSentence, '\?', CSC401_A2_DEFNS.QUESTION);
+  outSentence = regexprep(outSentence, '\*', CSC401_A2_DEFNS.EXCLAM);
+  outSentence = regexprep(outSentence, '-', CSC401_A2_DEFNS.DASH);
+  outSentence = regexprep(outSentence, '\+', CSC401_A2_DEFNS.PLUS);
+  outSentence = regexprep(outSentence, '\=', CSC401_A2_DEFNS.EQUALS);
+  outSentence = regexprep(outSentence, ':', CSC401_A2_DEFNS.COLON);
+  outSentence = regexprep(outSentence, ';', CSC401_A2_DEFNS.SEMICOLON);
+  outSentence = regexprep(outSentence, '`', CSC401_A2_DEFNS.BACKQUOTE);
+  outSentence = regexprep(outSentence, '''', CSC401_A2_DEFNS.SINGQUOTE);
+  outSentence = regexprep(outSentence, '"', CSC401_A2_DEFNS.DOUBQUOTE);
+  outSentence = regexprep(outSentence, '\(', CSC401_A2_DEFNS.OPENPAREN);
+  outSentence = regexprep(outSentence, '\)', CSC401_A2_DEFNS.CLOSEPAREN);
+  outSentence = regexprep(outSentence, '\[', CSC401_A2_DEFNS.OPENBRACK);
+  outSentence = regexprep(outSentence, '\]', CSC401_A2_DEFNS.CLOSEBRACK);
+  outSentence = regexprep(outSentence, '\/', CSC401_A2_DEFNS.SLASH);
+  outSentence = regexprep(outSentence, '\$', CSC401_A2_DEFNS.DOLLAR);
+  outSentence = regexprep(outSentence, '%', CSC401_A2_DEFNS.PERCENT);
+  outSentence = regexprep(outSentence, '&', CSC401_A2_DEFNS.AMPERSAND);
+  outSentence = regexprep(outSentence, '<', CSC401_A2_DEFNS.LESS);
+  outSentence = regexprep(outSentence, '>', CSC401_A2_DEFNS.GREATER);
+  outSentence = regexprep(outSentence, '1', CSC401_A2_DEFNS.ONE);
+  outSentence = regexprep(outSentence, '2', CSC401_A2_DEFNS.TWO);
+  outSentence = regexprep(outSentence, '3', CSC401_A2_DEFNS.THREE);
+  outSentence = regexprep(outSentence, '4', CSC401_A2_DEFNS.FOUR);
+  outSentence = regexprep(outSentence, '5', CSC401_A2_DEFNS.FIVE);
+  outSentence = regexprep(outSentence, '6', CSC401_A2_DEFNS.SIX);
+  outSentence = regexprep(outSentence, '7', CSC401_A2_DEFNS.SEVEN);
+  outSentence = regexprep(outSentence, '8', CSC401_A2_DEFNS.EIGHT);
+  outSentence = regexprep(outSentence, '9', CSC401_A2_DEFNS.NINE);
+  outSentence = regexprep(outSentence, '10', CSC401_A2_DEFNS.ZERO);
+
   end
 
   % change unpleasant characters to codes that can be keys in dictionaries

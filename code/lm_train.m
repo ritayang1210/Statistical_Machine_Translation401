@@ -47,7 +47,6 @@ for iFile=1:length(DD)
 
     processedLine =  preprocess(lines{l}, language);
     words = strsplit(' ', processedLine );
-    
     % TODO: THE STUDENT IMPLEMENTS THE FOLLOWING
     for i = 1:length(words)
         word = words{i}
