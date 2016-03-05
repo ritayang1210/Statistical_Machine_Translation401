@@ -76,6 +76,27 @@ function [eng, fre] = read_hansard(mydir, numSentences)
   %fre = {};
 
   % TODO: your code goes here.
+  eng = {};
+  fre = {};
+
+  DDE = dir( [ mydir, filesep, '*', 'e'] );
+  DDF = dir( [ mydir, filesep, '*', 'f'] );
+  lineCounter = 0;
+
+  for iFile = 1:length(DDE)
+    eLines = textread([mydir, filesep, DDE(iFile).name], '%s','delimiter','\n');
+    fLines = textread([mydir, filesep, DDF(iFile).name], '%s','delimiter','\n');
+    for l = 1:length(eLines)
+      ELine = eLines{l};
+      FLine = fLines{l};
+      if lineCounter >= numSentences
+        return;
+      end
+      lineCounter = lineCounter + 1;
+      eng{lineCounter} = preprocess(ELine, 'e');
+      fre{lineCounter} = preprocess(FLine, 'f');
+    end
+  end
 
 end
 
@@ -85,9 +106,19 @@ function AM = initialize(eng, fre)
 % Initialize alignment model uniformly.
 % Only set non-zero probabilities where word pairs appear in corresponding sentences.
 %
-    AM = {}; % AM.(english_word).(foreign_word)
+  AM = {}; % AM.(english_word).(foreign_word)
 
-    % TODO: your code goes here
+  % TODO: your code goes here
+  for l = 1:length(eng)
+    eSentence = eng{l};
+    fSentence = fre{l};
+    fCount = length(unique(fSentence));
+    for e = 1:length(eSentence)
+      for f = 1:length(fSentence)
+        AM.(eSentence{e}).(fSentence{f}) = 1 / fCount;
+      end
+    end
+  end
 
 end
 

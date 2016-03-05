@@ -47,7 +47,7 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
   words = strsplit(' ', sentence);
 
   % TODO: the student implements the following
-  res = 1;
+  res = 0;
   for i = 2:length(words)
     delta_to_use = 0;
     if type == 'smooth'
@@ -68,7 +68,7 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
       %   res = res * 
       % end
       if type ~= 'smooth'
-        return 0;
+        return;
       end
     else
       bi_count = getfield(LM.bi, words{i - 1}, word);
@@ -82,12 +82,14 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
     end
 
     if isfield(LM.uni, words{i - 1})
-      uni_count = getfield(LM.uni, words{i-1}
+      uni_count = getfield(LM.uni, words{i-1};
+    elseif type ~= 'smooth'
+      return;
     end
 
-    res = res * (bi_count + delta) / (uni_count + delta * vocabSize)
+    res = res + log2((bi_count + delta) / (uni_count + delta * vocabSize));
   end
-  return res
 
+  logProb = res;
   % TODO: once upon a time there was a curmudgeonly orangutan named Jub-Jub.
 return
