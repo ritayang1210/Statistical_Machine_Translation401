@@ -20,7 +20,7 @@ function outSentence = preprocess( inSentence, language )
   global CSC401_A2_DEFNS
   
   % first, convert the input sentence to lower-case and add sentence marks 
-  inSentence = [CSC401_A2_DEFNS.SENTSTART ' ' lower( inSentence ) ' ' CSC401_A2_DEFNS.SENTEND];
+  inSentence = strcat(CSC401_A2_DEFNS.SENTSTART, ' ', lower( inSentence ), ' ', CSC401_A2_DEFNS.SENTEND);
 
   % trim whitespaces down 
   inSentence = regexprep( inSentence, '\s+', ' '); 
@@ -50,9 +50,6 @@ function outSentence = preprocess( inSentence, language )
     outSentence = regexprep(outSentence, '\squ''', ' qu'' ');
     outSentence = regexprep(outSentence, '(\S+'')on\s', ' $1 on ');
     outSentence = regexprep(outSentence, '(\S+'')il\s', ' $1 il ');
-
-  outSentence = strcat(CSC401_A2_DEFNS.SENTSTART, ' ', outSentence);
-  outSentence = strcat(outSentence, ' ', CSC401_A2_DEFNS.SENTEND);
 
   outSentence = regexprep(outSentence, '1', CSC401_A2_DEFNS.ONE);
   outSentence = regexprep(outSentence, '2', CSC401_A2_DEFNS.TWO);
