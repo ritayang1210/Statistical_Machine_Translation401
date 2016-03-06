@@ -71,6 +71,7 @@ for iFile=1:length(DD)
     end
     % TODO: THE STUDENT IMPLEMENTED THE PRECEDING
   end
+  disp(['Finished with ', DD(iFile).name]);
 end
 
 save( fn_LM, 'LM', '-mat'); 

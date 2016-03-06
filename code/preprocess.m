@@ -19,8 +19,6 @@ function outSentence = preprocess( inSentence, language )
 
   global CSC401_A2_DEFNS
 
-  disp(inSentence);
-  
   % first, convert the input sentence to lower-case and add sentence marks 
   inSentence = [CSC401_A2_DEFNS.SENTSTART ' ' lower( inSentence ) ' ' CSC401_A2_DEFNS.SENTEND];
 
