@@ -32,7 +32,8 @@ function outSentence = preprocess( inSentence, language )
   % TODO: your code here
   %    e.g., outSentence = regexprep( outSentence, 'TODO', 'TODO');
   % dashes between parentheses ? 
-  possessives = strsplit(' ', '\.$ \( \) : ; \+ < > \= \.{3,} \?+ \!+ " \* \, ` \[ \] / \$ \% \&');
+  outSentence = regexprep(outSentence, ['\.\s+', CSC401_A2_DEFNS.SENTEND], [' \. ', CSC401_A2_DEFNS.SENTEND])
+  possessives = strsplit(' ', '\( \) : ; \+ < > \= \.{3,} \?+ \!+ " \* \, ` \[ \] / \$ \% \&');
   for i = 1:length(possessives)
     possessive = possessives{i};
     outSentence = regexprep(outSentence, strcat('(', possessive, ')'), ' $1 ');
