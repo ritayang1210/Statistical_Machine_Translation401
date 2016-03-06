@@ -20,7 +20,7 @@ function outSentence = preprocess( inSentence, language )
   global CSC401_A2_DEFNS
   
   % first, convert the input sentence to lower-case and add sentence marks 
-  inSentence = strcat(CSC401_A2_DEFNS.SENTSTART, ' ', lower( inSentence ), ' ', CSC401_A2_DEFNS.SENTEND);
+  inSentence = [CSC401_A2_DEFNS.SENTSTART ' ' lower( inSentence ) ' ' CSC401_A2_DEFNS.SENTEND];
 
   % trim whitespaces down 
   inSentence = regexprep( inSentence, '\s+', ' '); 
