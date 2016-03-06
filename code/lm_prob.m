@@ -47,6 +47,7 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
   words = strsplit(' ', sentence);
 
   % TODO: the student implements the following
+  words = words(~cellfun(@isempty, words));
   res = 0;
   for i = 2:length(words)
     delta_to_use = 0;

@@ -18,7 +18,7 @@ function outSentence = preprocess( inSentence, language )
 %  Template (c) 2011 Frank Rudzicz 
 
   global CSC401_A2_DEFNS
-  
+
   % first, convert the input sentence to lower-case and add sentence marks 
   inSentence = [CSC401_A2_DEFNS.SENTSTART ' ' lower( inSentence ) ' ' CSC401_A2_DEFNS.SENTEND];
 
@@ -32,26 +32,25 @@ function outSentence = preprocess( inSentence, language )
   % TODO: your code here
   %    e.g., outSentence = regexprep( outSentence, 'TODO', 'TODO');
   % dashes between parentheses ? 
-  possessives = cellstr(['\.$'; '\('; '\)'; ':'; ';'; '-'; '\+'; '<'; '>'; '\='; '\.{3,}'; '\?+'; '\!+'; '"']);
+  outSentence = regexprep(outSentence, ['\.\s+', CSC401_A2_DEFNS.SENTEND], [' \. ', CSC401_A2_DEFNS.SENTEND])
+  possessives = strsplit(' ', '\( \) : ; \+ < > \= \.{3,} \?+ \!+ " \* \, ` \[ \] / \$ \% \&');
   for i = 1:length(possessives)
     possessive = possessives{i};
-    outSentence = regexprep(outSentence, strcat('(', possessive, ')'), strcat(' $1 '));
+    outSentence = regexprep(outSentence, strcat('(', possessive, ')'), ' $1 ');
   end
-  
+
+  outSentence = regexprep(outSentence, '(\(.*)-(.*\))', ' $1 - $2 ')
 
   switch language
    case 'e'
-    outSentence = regexprep(outSentence, '(\S+s)''\s', strcat(' $1 '' '));
-    outSentence = regexprep(outSentence, strcat('''s'), strcat(' ''s '));
+    outSentence = regexprep(outSentence, '(\S+s)''\s', ' $1 '' ');
+    outSentence = regexprep(outSentence, '''s', ' ''s ');
    case 'f'
-    outSentence = regexprep(outSentence, strcat('\sl''', strcat(' l'' '));
-    outSentence = regexprep(outSentence, strcat('\s(\S'')', strcat(' $1 '));
-    outSentence = regexprep(outSentence, strcat('\squ''', strcat(' qu'' '));
-    outSentence = regexprep(outSentence, strcat('(\S+'')on\s', strcat(' $1 on '));
-    outSentence = regexprep(outSentence, strcat('(\S+'')il\s', strcat(' $1 il '));
-
-  outSentence = strcat(CSC401_A2_DEFNS.SENTSTART, ' ', outSentence);
-  outSentence = strcat(outSentence, ' ', CSC401_A2_DEFNS.SENTEND);
+    outSentence = regexprep(outSentence, '\sl''', ' l'' ');
+    outSentence = regexprep(outSentence, '\s(\S'')', ' $1 ');
+    outSentence = regexprep(outSentence, '\squ''', ' qu'' ');
+    outSentence = regexprep(outSentence, '(\S+'')on\s', ' $1 on ');
+    outSentence = regexprep(outSentence, '(\S+'')il\s', ' $1 il ');
 
   outSentence = regexprep(outSentence, '1', CSC401_A2_DEFNS.ONE);
   outSentence = regexprep(outSentence, '2', CSC401_A2_DEFNS.TWO);
