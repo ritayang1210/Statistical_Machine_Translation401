@@ -17,6 +17,7 @@ function outSentence = preprocess( inSentence, language )
 %
 %  Template (c) 2011 Frank Rudzicz 
 
+  CSC401_A2_DEFNS
   global CSC401_A2_DEFNS
 
   disp(inSentence);
