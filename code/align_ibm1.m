@@ -109,11 +109,13 @@ function AM = initialize(eng, fre)
 
   % TODO: your code goes here
   for l = 1:length(eng)
-    eSentence = eng{l};
+    eSentence = strsplit(' ', eng{l});
+    eSentence = eSentence(~cellfun(@isempty, eSentence));
     for eWordIndex = 1:length(eSentence)
       eWord = eSentence{eWordIndex};
       for f = 1:length(fre)
-        fSentence = fre{f};
+        fSentence = strsplit(' ', fre{f});
+        fSentence = fSentence(~cellfun(@isempty, fSentence));
         for fWordIndex = 1:length(fSentence)
           fWord = fSentence{fWordIndex};
           if l == f
@@ -151,7 +153,11 @@ function t = em_step(t, eng, fre)
 % end
   for l = length(fre)
     fSentence = unique(fre{l});
+    fSentence = strsplit(' ', fSentence);
+    fSentence = fSentence(~cellfun(@isempty, fSentence));
     eSentence = unique(eng{l});
+    eSentence = strsplit(' ', eSentence);
+    eSentence = eSentence(~cellfun(@isempty, eSentence));
     for f = 1:length(fSentence)
       fWord = fSentence{f};
       fCount = sum(ismember(fre{l}, fWord));
