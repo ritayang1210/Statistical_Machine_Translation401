@@ -155,7 +155,7 @@ function t = em_step(t, eng, fre)
 %     end
 %   end
 % end
-  for l = length(fre)
+  for l = 1:length(fre)
     fSentence = fre{l};
     fSentence = strsplit(' ', fSentence);
     fSentence = fSentence(~cellfun(@isempty, fSentence));
