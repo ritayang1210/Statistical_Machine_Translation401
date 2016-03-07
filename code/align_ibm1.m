@@ -160,10 +160,12 @@ function t = em_step(t, eng, fre)
     eSentence = eSentence(~cellfun(@isempty, eSentence));
     for f = 1:length(fSentence)
       fWord = fSentence{f};
+      print(fWord)
       fCount = sum(ismember(fre{l}, fWord));
       denom_c = 0;
       for e = 1:length(eSentence)
         eWord = eSentence{e};
+        print(eWord)
         eCount = sum(ismember(eng{l}, eWord));
         denom_c = denom_c + t.(eWord).(fWord) * fCount;
       end
