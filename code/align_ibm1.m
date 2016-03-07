@@ -132,8 +132,8 @@ function t = em_step(t, eng, fre)
 %
   
   % TODO: your code goes here
-tCount = struct();
-eTotal = struct();
+  tCount = struct();
+  eTotal = struct();
 % for i = 1:length(eng)
 %   eSentence = unique(eng{i});
 %   for e = 1:leng(eSentence)
@@ -148,41 +148,41 @@ eTotal = struct();
 %     end
 %   end
 % end
-for l = length(fre)
-  fSentence = unique(fre{l});
-  eSentence = unique(eng{l});
-  for f = 1:length(fSentence)
-    fWord = fSentence{f};
-    fCount = sum(ismember(fre{l}, fWord));
-    denom_c = 0;
-    for e = 1:length(eSentence)
-      eWord = eSentence{e};
-      eCount = sum(ismember(eng{l}, eWord));
-      denom_c = denom_c + t.(eWord).(fWord) * fCount;
-    end
-    for e = 1:length(eSentence)
-      if ~isfield(eTotal, eWord)
-        eTotal.(eWord) = 0;
+  for l = length(fre)
+    fSentence = unique(fre{l});
+    eSentence = unique(eng{l});
+    for f = 1:length(fSentence)
+      fWord = fSentence{f};
+      fCount = sum(ismember(fre{l}, fWord));
+      denom_c = 0;
+      for e = 1:length(eSentence)
+        eWord = eSentence{e};
+        eCount = sum(ismember(eng{l}, eWord));
+        denom_c = denom_c + t.(eWord).(fWord) * fCount;
       end
-      if ~isfield(tCount, eWord)
-        tCount.(eWord) = struct();
+      for e = 1:length(eSentence)
+        if ~isfield(eTotal, eWord)
+          eTotal.(eWord) = 0;
+        end
+        if ~isfield(tCount, eWord)
+          tCount.(eWord) = struct();
+        end
+        if ~isfield(tCount.(eWord), fWord)
+          tCount.(eWord).(fWord) = 0;
+        end
+        tCount.(eWord).(fWord) = tCount.(eWord).(fWord) + t.(eWord).(fWord) * fCount * eCount / denom_c;
+        eTotal.(eWord) = eTotal.(eWord) + t.(eWord).(fWord) * fCount * eCount / denom_c;
       end
-      if ~isfield(tCount.(eWord), fWord)
-        tCount.(eWord).(fWord) = 0;
-      end
-      tCount.(eWord).(fWord) = tCount.(eWord).(fWord) + t.(eWord).(fWord) * fCount * eCount / denom_c;
-      eTotal.(eWord) = eTotal.(eWord) + t.(eWord).(fWord) * fCount * eCount / denom_c;
     end
   end
-eFields = fieldnames(tCount);
-for i = 1:numel(eFields)
-  eField = eFields{i};
-  jFields = fieldnames(eField);
-  for j = 1:numel(jFields)
-    jField = jFields{j};
-    AM.(eField).(jField) = tCount.(eField).(jField) / eTotal.(eField);
+  eFields = fieldnames(tCount);
+  for i = 1:numel(eFields)
+    eField = eFields{i};
+    jFields = fieldnames(eField);
+    for j = 1:numel(jFields)
+      jField = jFields{j};
+      AM.(eField).(jField) = tCount.(eField).(jField) / eTotal.(eField);
+    end
   end
-end
-
 end
 
