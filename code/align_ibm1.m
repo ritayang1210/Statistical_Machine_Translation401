@@ -110,15 +110,16 @@ function AM = initialize(eng, fre)
   % TODO: your code goes here
   for l = 1:length(eng)
     eSentence = eng{l};
-    for lf = 1:length(fre)
-      fSentence = fre{lf};
-      fCount = length(unique(fSentence));
-      for e = 1:length(eSentence)
-        for f = 1:length(fSentence)
-          if lf == l
-            AM.(eSentence{e}).(fSentence{f}) = 1 / fCount;
+    for eWordIndex = 1:length(eSentence)
+      eWord = eSentence{eWordIndex};
+      for f = 1:length(fre)
+        fSentence = fre{f};
+        for fWordIndex = 1:length(fSentence)
+          fWord = fSentence{fWordIndex};
+          if l == f
+            AM.(eWord).(fWord) = 1 / length(unique(fSentence));
           else
-            AM.(eSentence{e}).(fSentence{f}) = 0;
+            AM.(eWord).(fWord) = 0;
           end
         end
       end
