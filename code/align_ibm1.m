@@ -40,7 +40,7 @@ function AM = align_ibm1(trainDir, numSentences, maxIter, fn_AM)
   AM = initialize(eng, fre);
 
   % Iterate between E and M steps
-  for iter=1:maxIter,
+  for iter=1:str2num(maxIter),
     AM = em_step(AM, eng, fre);
   end
 
