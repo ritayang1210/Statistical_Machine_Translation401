@@ -121,14 +121,16 @@ function AM = initialize(eng, fre)
           fWord = fSentence{fWordIndex};
           disp(fWord)
           if l == f
-            AM.(eWord).(fWord) = 1 / length(unique(fSentence));
-          else
+            AM.(eWord).(fWord) = 1 / length(fSentence);
+          elseif ~isfield(AM, eWord) || ~isfield(AM.(eWord), fWord)
             AM.(eWord).(fWord) = 0;
           end
         end
       end
     end
   end
+  AM.SENTSTART.SENTSTART = 1;
+  AM.SENTEND.SENTEND = 1;
 end
 
 function t = em_step(t, eng, fre)
@@ -154,10 +156,10 @@ function t = em_step(t, eng, fre)
 %   end
 % end
   for l = length(fre)
-    fSentence = unique(fre{l});
+    fSentence = fre{l};
     fSentence = strsplit(' ', fSentence);
     fSentence = fSentence(~cellfun(@isempty, fSentence));
-    eSentence = unique(eng{l});
+    eSentence = eng{l};
     eSentence = strsplit(' ', eSentence);
     eSentence = eSentence(~cellfun(@isempty, eSentence));
     for f = 1:length(fSentence)
