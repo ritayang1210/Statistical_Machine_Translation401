@@ -190,7 +190,7 @@ function t = em_step(t, eng, fre)
     jFields = fieldnames(tCount.(eField));
     for j = 1:numel(jFields)
       jField = jFields{j};
-      AM.(eField).(jField) = tCount.(eField).(jField) / eTotal.(eField);
+      t.(eField).(jField) = tCount.(eField).(jField) / eTotal.(eField);
     end
   end
 end
