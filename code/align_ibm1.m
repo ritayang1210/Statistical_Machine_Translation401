@@ -113,11 +113,13 @@ function AM = initialize(eng, fre)
     eSentence = eSentence(~cellfun(@isempty, eSentence));
     for eWordIndex = 1:length(eSentence)
       eWord = eSentence{eWordIndex};
+      disp(eWord)
       for f = 1:length(fre)
         fSentence = strsplit(' ', fre{f});
         fSentence = fSentence(~cellfun(@isempty, fSentence));
         for fWordIndex = 1:length(fSentence)
           fWord = fSentence{fWordIndex};
+          disp(fWord)
           if l == f
             AM.(eWord).(fWord) = 1 / length(unique(fSentence));
           else
