@@ -119,14 +119,16 @@ function AM = initialize(eng, fre)
         for fWordIndex = 1:length(fSentence)
           fWord = fSentence{fWordIndex};
           if l == f
-            AM.(eWord).(fWord) = 1 / length(unique(fSentence));
-          else
+            AM.(eWord).(fWord) = 1 / length(fSentence);
+          elseif ~isfield(AM, eWord) || ~isfield(AM.(eWord), fWord)
             AM.(eWord).(fWord) = 0;
           end
         end
       end
     end
   end
+  AM.SENTSTART.SENTSTART = 1;
+  AM.SENTEND.SENTEND = 1;
 end
 
 function t = em_step(t, eng, fre)
@@ -151,11 +153,11 @@ function t = em_step(t, eng, fre)
 %     end
 %   end
 % end
-  for l = length(fre)
-    fSentence = unique(fre{l});
+  for l = 1:length(fre)
+    fSentence = fre{l};
     fSentence = strsplit(' ', fSentence);
     fSentence = fSentence(~cellfun(@isempty, fSentence));
-    eSentence = unique(eng{l});
+    eSentence = eng{l};
     eSentence = strsplit(' ', eSentence);
     eSentence = eSentence(~cellfun(@isempty, eSentence));
     for f = 1:length(fSentence)
@@ -185,10 +187,10 @@ function t = em_step(t, eng, fre)
   eFields = fieldnames(tCount);
   for i = 1:numel(eFields)
     eField = eFields{i};
-    jFields = fieldnames(eField);
+    jFields = fieldnames(tCount.(eField));
     for j = 1:numel(jFields)
       jField = jFields{j};
-      AM.(eField).(jField) = tCount.(eField).(jField) / eTotal.(eField);
+      t.(eField).(jField) = tCount.(eField).(jField) / eTotal.(eField);
     end
   end
 end
