@@ -119,7 +119,11 @@ function AM = initialize(eng, fre)
         for fWordIndex = 1:length(fSentence)
           fWord = fSentence{fWordIndex};
           if l == f
-            AM.(eWord).(fWord) = 1 / length(fSentence);
+            if ~isfield(AM, eWord) || ~isfield(AM.(eWord), fWord) || AM.(eWord).(fWord) == 0
+              AM.(eWord).(fWord) = 1 / length(unique(fSentence));
+            else
+              AM.(eWord).(fWord) = 1 / ((1 / AM.(eWord).(fWord)) + unique(fSentence));
+            end
           elseif ~isfield(AM, eWord) || ~isfield(AM.(eWord), fWord)
             AM.(eWord).(fWord) = 0;
           end
