@@ -113,13 +113,11 @@ function AM = initialize(eng, fre)
     eSentence = eSentence(~cellfun(@isempty, eSentence));
     for eWordIndex = 1:length(eSentence)
       eWord = eSentence{eWordIndex};
-      disp(eWord)
       for f = 1:length(fre)
         fSentence = strsplit(' ', fre{f});
         fSentence = fSentence(~cellfun(@isempty, fSentence));
         for fWordIndex = 1:length(fSentence)
           fWord = fSentence{fWordIndex};
-          disp(fWord)
           if l == f
             AM.(eWord).(fWord) = 1 / length(unique(fSentence));
           else
@@ -162,12 +160,10 @@ function t = em_step(t, eng, fre)
     eSentence = eSentence(~cellfun(@isempty, eSentence));
     for f = 1:length(fSentence)
       fWord = fSentence{f};
-      disp(fWord)
       fCount = sum(ismember(fre{l}, fWord));
       denom_c = 0;
       for e = 1:length(eSentence)
         eWord = eSentence{e};
-        disp(eWord)
         eCount = sum(ismember(eng{l}, eWord));
         denom_c = denom_c + t.(eWord).(fWord) * fCount;
       end
