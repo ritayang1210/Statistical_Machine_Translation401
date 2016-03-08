@@ -71,7 +71,7 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
       return;
     end
 
-    res = res + log2((bi_count + delta) / (uni_count + delta * vocabSize));
+    res = res + log2((bi_count + delta_to_use) / (uni_count + delta_to_use * vocabSize));
   end
 
   logProb = res;
