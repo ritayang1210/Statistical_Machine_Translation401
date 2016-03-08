@@ -122,7 +122,7 @@ function AM = initialize(eng, fre)
             if ~isfield(AM, eWord) || ~isfield(AM.(eWord), fWord) || AM.(eWord).(fWord) == 0
               AM.(eWord).(fWord) = 1 / length(unique(fSentence));
             else
-              AM.(eWord).(fWord) = 1 / ((1 / AM.(eWord).(fWord)) + unique(fSentence));
+              AM.(eWord).(fWord) = 1 / ((1 / AM.(eWord).(fWord)) + length(unique(fSentence)));
             end
           elseif ~isfield(AM, eWord) || ~isfield(AM.(eWord), fWord)
             AM.(eWord).(fWord) = 0;
