@@ -58,7 +58,7 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
     bi_count = 0;
     uni_count = 0;
     if ~isfield(LM.bi, words{i - 1}) || ~isfield(getfield(LM.bi, words{i - 1}), word)
-      if type ~= 'smooth'
+      if ~strcmp(type, 'smooth')
         return;
       end
     else
@@ -67,7 +67,7 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
 
     if isfield(LM.uni, words{i - 1})
       uni_count = getfield(LM.uni, words{i - 1});
-    elseif type ~= 'smooth'
+    elseif ~strcmp(type, 'smooth')
       return;
     end
 
