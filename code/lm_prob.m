@@ -51,7 +51,7 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
   res = 0;
   for i = 2:length(words)
     delta_to_use = 0;
-    if type == 'smooth'
+    if strcmp(type, 'smooth')
       delta_to_use = delta;
     end
     word = words{i};
