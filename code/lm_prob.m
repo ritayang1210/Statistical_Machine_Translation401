@@ -55,35 +55,18 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
       delta_to_use = delta;
     end
     word = words{i};
-      % if (~exist('type', 'var') || type == '' && isfield(LM.uni, word))
-      %   p1 = getfield(LM.uni, word) / length(words)
-      % elseif (type == 'smooth' && isfield(LM.uni, word))
-      %   p1 = getfield(LM.uni, word) / length(words)
-      % end
     bi_count = 0;
     uni_count = 0;
     if ~isfield(LM.bi, words{i - 1}) || ~isfield(getfield(LM.bi, words{i - 1}), word)
-      % if (~exist('type', 'var') || type == '')
-      %   res = 0
-      % elseif (type == 'smooth')
-      %   res = res * 
-      % end
       if type ~= 'smooth'
         return;
       end
     else
       bi_count = getfield(LM.bi, words{i - 1}, word);
-      % if (~exist('type', 'var') || type == '')
-      %   mle_curWord = getfield(LM.bi, words{i-1}, word) / getfield(LM.uni, words{i-1})
-      % elseif (type == 'smooth')
-      %   mle_curWord = (getfield(LM.bi, words{i-1}, word) + delta) / (getfield(LM.uni, words{i-1}) + delta * vocabSize)
-      % end
-      % res = res * mle_curWord
-      % return res;
     end
 
     if isfield(LM.uni, words{i - 1})
-      uni_count = getfield(LM.uni, words{i-1};
+      uni_count = getfield(LM.uni, words{i - 1});
     elseif type ~= 'smooth'
       return;
     end
