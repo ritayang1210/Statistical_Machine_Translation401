@@ -45,7 +45,7 @@ function outSentence = preprocess( inSentence, language )
   outSentence = regexprep(outSentence, '(\(\S+.+)-(\S+.+\))', ' $1 - $2 ', 'all');
   while (~strcmp(oldOutSentence, outSentence))
     oldOutSentence = outSentence;
-    outSentence = regexprep(outSentence, '(\(\S+.+)-(\S+.+\))', ' $1 - $2 ', 'all')
+    outSentence = regexprep(outSentence, '(\(\S+.+)-(\S+.+\))', ' $1 - $2 ', 'all');
   end
 
   switch language
@@ -69,6 +69,8 @@ function outSentence = preprocess( inSentence, language )
   outSentence = regexprep(outSentence, '8', CSC401_A2_DEFNS.EIGHT);
   outSentence = regexprep(outSentence, '9', CSC401_A2_DEFNS.NINE);
   outSentence = regexprep(outSentence, '10', CSC401_A2_DEFNS.ZERO);
+
+  disp(outSentence);
 
   end
 
