@@ -17,7 +17,6 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
 % Template (c) 2011 Frank Rudzicz
 
   logProb = -Inf;
-  sentence = preprocess(sentence, 'e');
 
   % some rudimentary parameter checking
   if (nargin < 2)
@@ -48,7 +47,7 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
   words = strsplit(' ', sentence);
 
   % TODO: the student implements the following
-  words = words(~cellfun(@isempty, words))
+  words = words(~cellfun(@isempty, words));
   res = 0;
   for i = 2:length(words)
     delta_to_use = 0;
