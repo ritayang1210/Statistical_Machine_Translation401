@@ -143,24 +143,24 @@ function t = em_step(t, eng, fre)
   % TODO: your code goes here
   tCount = struct();
   eTotal = struct();
-  for i = 1:length(eng)
-    eSentence = unique(eng{i});
-    eSentence = strsplit(' ', eSentence);
-    eSentence = eSentence(~cellfun(@isempty, eSentence));
-    for e = 1:length(eSentence)
-      eWord = eSentence{e};
-      eTotal.(eWord) = 0;
-      for j = 1:length(fre)
-        fSentence = unique(fre{j});
-        fSentence = strsplit(' ', fSentence);
-        fSentence = fSentence(~cellfun(@isempty, fSentence));
-        for f = 1:length(fSentence)
-          fWord = fSentence{f};
-          tCount.(eWord).(fWord) = 0;
-        end
-      end
-    end
-  end
+  % for i = 1:length(eng)
+  %   eSentence = unique(eng{i});
+  %   eSentence = strsplit(' ', eSentence);
+  %   eSentence = eSentence(~cellfun(@isempty, eSentence));
+  %   for e = 1:length(eSentence)
+  %     eWord = eSentence{e};
+  %     eTotal.(eWord) = 0;
+  %     for j = 1:length(fre)
+  %       fSentence = unique(fre{j});
+  %       fSentence = strsplit(' ', fSentence);
+  %       fSentence = fSentence(~cellfun(@isempty, fSentence));
+  %       for f = 1:length(fSentence)
+  %         fWord = fSentence{f};
+  %         tCount.(eWord).(fWord) = 0;
+  %       end
+  %     end
+  %   end
+  % end
   for l = 1:length(fre)
     fSentence = fre{l};
     fSentence = strsplit(' ', fSentence);
@@ -178,15 +178,15 @@ function t = em_step(t, eng, fre)
         denom_c = denom_c + t.(eWord).(fWord) * fCount;
       end
       for e = 1:length(eSentence)
-        % if ~isfield(eTotal, eWord)
-        %   eTotal.(eWord) = 0;
-        % end
-        % if ~isfield(tCount, eWord)
-        %   tCount.(eWord) = struct();
-        % end
-        % if ~isfield(tCount.(eWord), fWord)
-        %   tCount.(eWord).(fWord) = 0;
-        % end
+        if ~isfield(eTotal, eWord)
+          eTotal.(eWord) = 0;
+        end
+        if ~isfield(tCount, eWord)
+          tCount.(eWord) = struct();
+        end
+        if ~isfield(tCount.(eWord), fWord)
+          tCount.(eWord).(fWord) = 0;
+        end
         tCount.(eWord).(fWord) = tCount.(eWord).(fWord) + t.(eWord).(fWord) * fCount * eCount / denom_c;
         eTotal.(eWord) = eTotal.(eWord) + t.(eWord).(fWord) * fCount * eCount / denom_c;
       end
