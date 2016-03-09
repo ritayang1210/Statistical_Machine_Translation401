@@ -32,14 +32,21 @@ function outSentence = preprocess( inSentence, language )
   % TODO: your code here
   %    e.g., outSentence = regexprep( outSentence, 'TODO', 'TODO');
   % dashes between parentheses ? 
-  outSentence = regexprep(outSentence, ['\.\s+', CSC401_A2_DEFNS.SENTEND], [' \. ', CSC401_A2_DEFNS.SENTEND])
+  outSentence = regexprep(outSentence, ['\.\s+', CSC401_A2_DEFNS.SENTEND], [' \. ', CSC401_A2_DEFNS.SENTEND]);
   possessives = strsplit(' ', '\( \) : ; \+ < > \= \.{3,} \?+ \!+ " \* \, ` \[ \] / \$ \% \&');
   for i = 1:length(possessives)
     possessive = possessives{i};
     outSentence = regexprep(outSentence, strcat('(', possessive, ')'), ' $1 ');
   end
 
-  outSentence = regexprep(outSentence, '(\(.*)-(.*\))', ' $1 - $2 ')
+  % outSentence = regexprep(outSentence, '(\(.*)-(.*\))', ' $1 - $2 ');
+
+  oldOutSentence = outSentence;
+  outSentence = regexprep(outSentence, '(\(\S+.+)-(\S+.+\))', ' $1 - $2 ', 'all');
+  while (~strcmp(oldOutSentence, outSentence))
+    oldOutSentence = outSentence;
+    outSentence = regexprep(outSentence, '(\(\S+.+)-(\S+.+\))', ' $1 - $2 ', 'all')
+  end
 
   switch language
    case 'e'
