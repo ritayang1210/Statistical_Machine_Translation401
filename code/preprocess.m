@@ -32,6 +32,16 @@ function outSentence = preprocess( inSentence, language )
   % TODO: your code here
   %    e.g., outSentence = regexprep( outSentence, 'TODO', 'TODO');
   % dashes between parentheses ? 
+  outSentence = regexprep(outSentence, '1', CSC401_A2_DEFNS.ONE);
+  outSentence = regexprep(outSentence, '2', CSC401_A2_DEFNS.TWO);
+  outSentence = regexprep(outSentence, '3', CSC401_A2_DEFNS.THREE);
+  outSentence = regexprep(outSentence, '4', CSC401_A2_DEFNS.FOUR);
+  outSentence = regexprep(outSentence, '5', CSC401_A2_DEFNS.FIVE);
+  outSentence = regexprep(outSentence, '6', CSC401_A2_DEFNS.SIX);
+  outSentence = regexprep(outSentence, '7', CSC401_A2_DEFNS.SEVEN);
+  outSentence = regexprep(outSentence, '8', CSC401_A2_DEFNS.EIGHT);
+  outSentence = regexprep(outSentence, '9', CSC401_A2_DEFNS.NINE);
+  outSentence = regexprep(outSentence, '0', CSC401_A2_DEFNS.ZERO);
   outSentence = regexprep(outSentence, ['\.\s+', CSC401_A2_DEFNS.SENTEND], [' \. ', CSC401_A2_DEFNS.SENTEND]);
   possessives = strsplit(' ', '\( \) : ; \+ < > \= \.{3,} \?+ \!+ " \* \, ` \[ \] / \$ \% \&');
   for i = 1:length(possessives)
@@ -59,17 +69,6 @@ function outSentence = preprocess( inSentence, language )
     outSentence = regexprep(outSentence, '\squ''', ' qu'' ');
     outSentence = regexprep(outSentence, '(\S+'')on\s', ' $1 on ');
     outSentence = regexprep(outSentence, '(\S+'')il\s', ' $1 il ');
-
-  outSentence = regexprep(outSentence, '1', CSC401_A2_DEFNS.ONE);
-  outSentence = regexprep(outSentence, '2', CSC401_A2_DEFNS.TWO);
-  outSentence = regexprep(outSentence, '3', CSC401_A2_DEFNS.THREE);
-  outSentence = regexprep(outSentence, '4', CSC401_A2_DEFNS.FOUR);
-  outSentence = regexprep(outSentence, '5', CSC401_A2_DEFNS.FIVE);
-  outSentence = regexprep(outSentence, '6', CSC401_A2_DEFNS.SIX);
-  outSentence = regexprep(outSentence, '7', CSC401_A2_DEFNS.SEVEN);
-  outSentence = regexprep(outSentence, '8', CSC401_A2_DEFNS.EIGHT);
-  outSentence = regexprep(outSentence, '9', CSC401_A2_DEFNS.NINE);
-  outSentence = regexprep(outSentence, '0', CSC401_A2_DEFNS.ZERO);
 
   end
 
