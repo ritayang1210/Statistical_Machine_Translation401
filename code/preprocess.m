@@ -73,5 +73,5 @@ function outSentence = preprocess( inSentence, language )
   end
 
   % change unpleasant characters to codes that can be keys in dictionaries
-  outSentence = convertSymbols( outSentence )
+  outSentence = convertSymbols( outSentence );
 
