@@ -70,10 +70,8 @@ function outSentence = preprocess( inSentence, language )
   outSentence = regexprep(outSentence, '9', CSC401_A2_DEFNS.NINE);
   outSentence = regexprep(outSentence, '10', CSC401_A2_DEFNS.ZERO);
 
-  outSentence
-
   end
 
   % change unpleasant characters to codes that can be keys in dictionaries
-  outSentence = convertSymbols( outSentence );
+  outSentence = convertSymbols( outSentence )
 
