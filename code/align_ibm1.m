@@ -116,7 +116,7 @@ function AM = initialize(eng, fre)
       eWord = eSentence{eWordIndex};
       fSentence = strsplit(' ', fre{l});
       fSentence = fSentence(~cellfun(@isempty, fSentence));
-      fSentence = fSentence(2:length(fSentence));
+      fSentence = fSentence(2:length(fSentence) - 1);
       if ~isfield(allAligns, eWord)
         allAligns.(eWord) = unique(fSentence);
       else
