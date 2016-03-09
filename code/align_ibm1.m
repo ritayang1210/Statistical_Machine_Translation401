@@ -106,6 +106,7 @@ function AM = initialize(eng, fre)
 % Only set non-zero probabilities where word pairs appear in corresponding sentences.
 %
   AM = {}; % AM.(english_word).(foreign_word)
+  allAligns = {}
 
   % TODO: your code goes here
   for l = 1:length(eng)
@@ -113,24 +114,25 @@ function AM = initialize(eng, fre)
     eSentence = eSentence(~cellfun(@isempty, eSentence));
     for eWordIndex = 1:length(eSentence)
       eWord = eSentence{eWordIndex};
-      for f = 1:length(fre)
-        fSentence = strsplit(' ', fre{f});
-        fSentence = fSentence(~cellfun(@isempty, fSentence));
-        for fWordIndex = 1:length(fSentence)
-          fWord = fSentence{fWordIndex};
-          if l == f
-            if ~isfield(AM, eWord) || ~isfield(AM.(eWord), fWord) || AM.(eWord).(fWord) == 0
-              AM.(eWord).(fWord) = 1 / length(unique(fSentence));
-            else
-              AM.(eWord).(fWord) = 1 / ((1 / AM.(eWord).(fWord)) + length(unique(fSentence)));
-            end
-          elseif ~isfield(AM, eWord) || ~isfield(AM.(eWord), fWord)
-            AM.(eWord).(fWord) = 0;
-          end
-        end
+      fSentence = strsplit(' ', fre{l});
+      fSentence = fSentence(~cellfun(@isempty, fSentence));
+      if ~isfield(allAligns, eWord)
+        allAligns.(eWord) = unique(fSentence);
+      else
+        allAligns.(eWord) = unique([fSentence, allAligns.(eWord)]);
       end
     end
   end
+
+  alignFields = fieldnames(allAligns);
+  for i = 1:numel(alignFields)
+    alignField = alignFields{i};
+    alignment = allAligns.(alignField);
+    for j = 1:length(alignment)
+      AM.(alignField).(alignment{j}) = 1 / length(alignment);
+    end
+  end
+
   AM.SENTSTART.SENTSTART = 1;
   AM.SENTEND.SENTEND = 1;
 end
