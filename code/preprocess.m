@@ -36,7 +36,7 @@ function outSentence = preprocess( inSentence, language )
   possessives = strsplit(' ', '\( \) : ; \+ < > \= \.{3,} \?+ \!+ " \* \, ` \[ \] / \$ \% \&');
   for i = 1:length(possessives)
     possessive = possessives{i};
-    outSentence = regexprep(outSentence, strcat('(', possessive, ')'), ' $1 ');
+    outSentence = regexprep(outSentence, ['(', possessive, ')'], ' $1 ');
   end
 
   % outSentence = regexprep(outSentence, '(\(.*)-(.*\))', ' $1 - $2 ');
@@ -50,6 +50,7 @@ function outSentence = preprocess( inSentence, language )
 
   switch language
    case 'e'
+    outSentence = regexprep(outSentence, '''', ' '' ');
     outSentence = regexprep(outSentence, '(\S+s)''\s', ' $1 '' ');
     outSentence = regexprep(outSentence, '''s', ' ''s ');
    case 'f'
