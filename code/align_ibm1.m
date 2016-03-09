@@ -106,7 +106,7 @@ function AM = initialize(eng, fre)
 % Only set non-zero probabilities where word pairs appear in corresponding sentences.
 %
   AM = {}; % AM.(english_word).(foreign_word)
-  allAligns = {}
+  allAligns = {};
 
   % TODO: your code goes here
   for l = 1:length(eng)
@@ -181,10 +181,16 @@ function t = em_step(t, eng, fre)
       denom_c = 0;
       for e = 1:length(uniqueESentence)
         eWord = uniqueESentence{e};
+        if ~isfield(t, eWord) || ~isfield(t.(eWord), fWord)
+          continue;
+        end
         denom_c = denom_c + t.(eWord).(fWord) * fCount;
       end
       for e = 1:length(uniqueESentence)
         eWord = uniqueESentence{e};
+        if ~isfield(t, eWord) || ~isfield(t.(eWord), fWord)
+          continue;
+        end
         if ~isfield(eTotal, eWord)
           eTotal.(eWord) = 0;
         end
