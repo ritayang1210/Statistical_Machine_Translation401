@@ -134,8 +134,10 @@ function AM = initialize(eng, fre)
     end
   end
 
-  AM.(CSC401_A2_DEFNS.SENTSTART).(CSC401_A2_DEFNS.SENTSTART) = 1;
-  AM.(CSC401_A2_DEFNS.SENTEND).(CSC401_A2_DEFNS.SENTEND) = 1;
+  AM.SENTSTART = {};
+  AM.SENTEND = {};
+  AM.SENTSTART.SENTSTART = 1;
+  AM.SENTEND.SENTEND = 1;
 end
 
 function t = em_step(t, eng, fre)
