@@ -201,8 +201,9 @@ function t = em_step(t, eng, fre)
           tCount.(eWord).(fWord) = 0;
         end
         eCount = sum(ismember(eSentence, eWord));
-        tCount.(eWord).(fWord) = tCount.(eWord).(fWord) + ((t.(eWord).(fWord) * fCount * eCount) / denom_c);
-        eTotal.(eWord) = eTotal.(eWord) + ((t.(eWord).(fWord) * fCount * eCount) / denom_c);
+        toUpdate = (t.(eWord).(fWord) * fCount * eCount) / denom_c;
+        tCount.(eWord).(fWord) = tCount.(eWord).(fWord) + toUpdate;
+        eTotal.(eWord) = eTotal.(eWord) + toUpdate;
       end
     end
   end
