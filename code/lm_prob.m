@@ -17,6 +17,7 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
 % Template (c) 2011 Frank Rudzicz
 
   logProb = -Inf;
+  sentence = preprocess(sentence, 'e');
 
   % some rudimentary parameter checking
   if (nargin < 2)
