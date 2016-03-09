@@ -173,16 +173,18 @@ function t = em_step(t, eng, fre)
     eSentence = eng{l};
     eSentence = strsplit(' ', eSentence);
     eSentence = eSentence(~cellfun(@isempty, eSentence));
-    for f = 1:length(fSentence)
-      fWord = fSentence{f};
-      fCount = sum(ismember(fre{l}, fWord));
+    uniqueFSentence = unique(fSentence);
+    uniqueESentence = unique(eSentence);
+    for f = 1:length(uniqueFSentence)
+      fWord = uniqueFSentence{f};
+      fCount = sum(ismember(fSentence, fWord));
       denom_c = 0;
-      for e = 1:length(eSentence)
-        eWord = eSentence{e};
-        eCount = sum(ismember(eng{l}, eWord));
+      for e = 1:length(uniqueESentence)
+        eWord = uniqueESentence{e};
         denom_c = denom_c + t.(eWord).(fWord) * fCount;
       end
-      for e = 1:length(eSentence)
+      for e = 1:length(uniqueESentence)
+        eWord = uniqueESentence{e};
         if ~isfield(eTotal, eWord)
           eTotal.(eWord) = 0;
         end
@@ -192,18 +194,19 @@ function t = em_step(t, eng, fre)
         if ~isfield(tCount.(eWord), fWord)
           tCount.(eWord).(fWord) = 0;
         end
-        tCount.(eWord).(fWord) = tCount.(eWord).(fWord) + t.(eWord).(fWord) * fCount * eCount / denom_c;
-        eTotal.(eWord) = eTotal.(eWord) + t.(eWord).(fWord) * fCount * eCount / denom_c;
+        eCount = sum(ismember(eSentence, eWord));
+        tCount.(eWord).(fWord) = tCount.(eWord).(fWord) + ((t.(eWord).(fWord) * fCount * eCount) / denom_c);
+        eTotal.(eWord) = eTotal.(eWord) + ((t.(eWord).(fWord) * fCount * eCount) / denom_c);
       end
     end
   end
-  eFields = fieldnames(tCount);
+  eFields = fieldnames(eTotal);
   for i = 1:numel(eFields)
     eField = eFields{i};
-    jFields = fieldnames(tCount.(eField));
-    for j = 1:numel(jFields)
-      jField = jFields{j};
-      t.(eField).(jField) = tCount.(eField).(jField) / eTotal.(eField);
+    fFields = fieldnames(tCount.(eField));
+    for j = 1:numel(fFields)
+      fField = fFields{j};
+      t.(eField).(fField) = tCount.(eField).(fField) / eTotal.(eField);
     end
   end
 end
