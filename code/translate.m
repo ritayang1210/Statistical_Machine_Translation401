@@ -11,7 +11,7 @@ for l=1:length(lines)
     french =  preprocess(lines{l}, 'f');
     disp(['Translating sentence ''', lines{l}, '''']);
     disp(decode2(french, LM, AM, lmtype, delta, vocabSize));
-    disp('\n');
+    disp('');
 end
 
 return
