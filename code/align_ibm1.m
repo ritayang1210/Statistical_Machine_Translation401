@@ -79,16 +79,19 @@ function [eng, fre] = read_hansard(mydir, numSentences)
   eng = {};
   fre = {};
 
+  % Read files
   DDE = dir( [ mydir, filesep, '*', 'e'] );
   DDF = dir( [ mydir, filesep, '*', 'f'] );
   lineCounter = 0;
 
   for iFile = 1:length(DDE)
+    % Read each file and each sentence
     eLines = textread([mydir, filesep, DDE(iFile).name], '%s','delimiter','\n');
     fLines = textread([mydir, filesep, DDF(iFile).name], '%s','delimiter','\n');
     for l = 1:length(eLines)
       ELine = eLines{l};
       FLine = fLines{l};
+      % Check if the max number of sentences is already reached
       if lineCounter >= numSentences
         return;
       end
@@ -113,6 +116,7 @@ function AM = initialize(eng, fre)
     eSentence = strsplit(' ', eng{l});
     eSentence = eSentence(~cellfun(@isempty, eSentence));
     for eWordIndex = 1:length(eSentence)
+      % Go through each word in each sentence and set up the alignments
       eWord = eSentence{eWordIndex};
       fSentence = strsplit(' ', fre{l});
       fSentence = fSentence(~cellfun(@isempty, fSentence));
@@ -125,6 +129,7 @@ function AM = initialize(eng, fre)
     end
   end
 
+  % Set the probability for the alignment model
   alignFields = fieldnames(allAligns);
   for i = 1:numel(alignFields)
     alignField = alignFields{i};
@@ -159,10 +164,12 @@ function t = em_step(t, eng, fre)
     uniqueFSentence = unique(fSentence);
     uniqueESentence = unique(eSentence);
     for f = 1:length(uniqueFSentence)
+      % Go through each unique french word in the sentence
       fWord = uniqueFSentence{f};
       fCount = sum(ismember(fSentence, fWord));
       denom_c = 0;
       for e = 1:length(uniqueESentence)
+        % Go through each unique english word in the sentence and calculate denom_c
         eWord = uniqueESentence{e};
         if ~isfield(t, eWord) || ~isfield(t.(eWord), fWord)
           continue;
@@ -170,6 +177,7 @@ function t = em_step(t, eng, fre)
         denom_c = denom_c + t.(eWord).(fWord) * fCount;
       end
       for e = 1:length(uniqueESentence)
+        % Go through each unique english word in the sentence
         eWord = uniqueESentence{e};
         if ~isfield(t, eWord) || ~isfield(t.(eWord), fWord)
           continue;
@@ -184,12 +192,14 @@ function t = em_step(t, eng, fre)
           tCount.(eWord).(fWord) = 0;
         end
         eCount = sum(ismember(eSentence, eWord));
+        % Update tCound and eTotal
         toUpdate = (t.(eWord).(fWord) * fCount * eCount) / denom_c;
         tCount.(eWord).(fWord) = tCount.(eWord).(fWord) + toUpdate;
         eTotal.(eWord) = eTotal.(eWord) + toUpdate;
       end
     end
   end
+  % Update the AM model
   eFields = fieldnames(eTotal);
   for i = 1:numel(eFields)
     eField = eFields{i};

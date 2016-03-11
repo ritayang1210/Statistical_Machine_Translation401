@@ -47,17 +47,20 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
   words = strsplit(' ', sentence);
 
   % TODO: the student implements the following
+  % Remove empty string from the array
   words = words(~cellfun(@isempty, words));
   res = 0;
   for i = 2:length(words)
     delta_to_use = 0;
     if strcmp(type, 'smooth')
+      % If type is set to smooth, use the passed in value for delta
       delta_to_use = delta;
     end
     word = words{i};
     bi_count = 0;
     uni_count = 0;
     if ~isfield(LM.bi, words{i - 1}) || ~isfield(getfield(LM.bi, words{i - 1}), word)
+      % In the case where corresponding bigram is not found
       if ~strcmp(type, 'smooth')
         return;
       end
@@ -66,11 +69,13 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
     end
 
     if isfield(LM.uni, words{i - 1})
+      % In the case where corresponding unigram is not found
       uni_count = getfield(LM.uni, words{i - 1});
     elseif ~strcmp(type, 'smooth')
       return;
     end
 
+    % Calculate the log probability
     res = res + log2((bi_count + delta_to_use) / (uni_count + delta_to_use * vocabSize));
   end
 

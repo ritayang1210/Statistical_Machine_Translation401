@@ -50,14 +50,17 @@ for iFile=1:length(DD)
     words = words(~cellfun(@isempty, words));
     % TODO: THE STUDENT IMPLEMENTS THE FOLLOWING
     for i = 1:length(words)
+        % Go through each word in the sentence
         word = words{i};
         if length(regexp(word, '^\s*$')) < 1
+            % Build unigram count
             if ~isfield(LM.uni, word)
                 LM.uni.(word) = 0;
             end
             LM.uni.(word) = LM.uni.(word) + 1;
 
             if i < length(words)
+                % Build bigram count
                 nextWord = words{i + 1};
                 if ~isfield(LM.bi, word)
                     LM.bi.(word) = struct();

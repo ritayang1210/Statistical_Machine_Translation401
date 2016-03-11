@@ -46,6 +46,7 @@ candidates_2 = textread(testFileRef_2, '%s','delimiter','\n');
 % TODO: perform some analysis
 % add BlueMix code here 
 for l = 1:length(fres)
+    % Retrieve candidate and all three references
     fre =  preprocess(fres{l}, 'f');
     candidate = decode2(fre, LME, AMFE, lm_type, delta, vocabSize);
     candidate = strsplit(' ', candidate);
@@ -59,12 +60,14 @@ for l = 1:length(fres)
 
     p = [];
     for n = 1:N
+        % Count the number of each n-gram
         num_of_grams = can_length - n + 1;
         match_count = 0;
         for i = 1:num_of_grams
             gram_candidate = strjoin(candidate(i:i + n - 1), ' ');
             match_count = match_count + (~isempty(findstr(eng_ref_1, gram_candidate)) || ~isempty(findstr(eng_ref_2, gram_candidate)) || ~isempty(findstr(eng_ref_3, gram_candidate)));
         end
+        % Calculate p values
         p{n} = match_count / num_of_grams;
     end
 
@@ -75,6 +78,7 @@ for l = 1:length(fres)
     eng_ref_3 = strsplit(' ', eng_ref_3);
     eng_ref_3 = eng_ref_3(2:length(eng_ref_3) - 1);
 
+    % Find the sentence with closest length
     closest_length = length(eng_ref_1);
     min_diff = abs(can_length - closest_length);
     if abs(can_length - length(eng_ref_2)) < min_diff
@@ -86,6 +90,7 @@ for l = 1:length(fres)
         min_diff = abs(can_length - length(eng_ref_3));
     end
 
+    % Calculate brevity and BP
     brevity = closest_length / can_length;
     BP = 1;
     if brevity >= 1

@@ -1,0 +1,19 @@
+pp_e_default = 9.7883
+pp_f_default = 9.2809
+
+pp_e_0.2 = 51.4960
+pp_f_0.2 = 53.8879
+
+pp_e_0.4 = 64.1497
+pp_f_0.4 = 68.5412
+
+pp_e_0.6 = 74.2947
+pp_f_0.6 = 80.4165
+
+pp_e_0.8 = 86.1672
+pp_f_0.8 = 92.2644
+
+pp_e_1.0 = 83.1300
+pp_f_1.0 = 90.8438
+
+Since a lower perplexity indicates better ability to make prediction of the testing sample, we can see that actually MLE performs better than delta-smooth. Taking MLE as a special case of delta-smooth where delta = 0, we can see that smaller delta achieves better performance in general however delta = 1.0 end up better than delta = 0.8. 

@@ -32,6 +32,7 @@ function outSentence = preprocess( inSentence, language )
   % TODO: your code here
   %    e.g., outSentence = regexprep( outSentence, 'TODO', 'TODO');
   % dashes between parentheses ? 
+  % Convert numbers
   outSentence = regexprep(outSentence, '1', CSC401_A2_DEFNS.ONE);
   outSentence = regexprep(outSentence, '2', CSC401_A2_DEFNS.TWO);
   outSentence = regexprep(outSentence, '3', CSC401_A2_DEFNS.THREE);
@@ -43,14 +44,15 @@ function outSentence = preprocess( inSentence, language )
   outSentence = regexprep(outSentence, '9', CSC401_A2_DEFNS.NINE);
   outSentence = regexprep(outSentence, '0', CSC401_A2_DEFNS.ZERO);
   outSentence = regexprep(outSentence, ['\.\s+', CSC401_A2_DEFNS.SENTEND], [' \. ', CSC401_A2_DEFNS.SENTEND]);
+
+  % Separate all possessive characters
   possessives = strsplit(' ', '\( \) : ; \+ < > \= \.{3,} \?+ \!+ " \* \, ` \[ \] / \$ \% \&');
   for i = 1:length(possessives)
     possessive = possessives{i};
     outSentence = regexprep(outSentence, ['(', possessive, ')'], ' $1 ');
   end
 
-  % outSentence = regexprep(outSentence, '(\(.*)-(.*\))', ' $1 - $2 ');
-
+  % Separate dashes surrounded by parenthesis
   oldOutSentence = outSentence;
   outSentence = regexprep(outSentence, '(\(.+\S+)-(\S+.+\))', ' $1 - $2 ', 'all');
   while ~strcmp(oldOutSentence, outSentence)
@@ -60,10 +62,12 @@ function outSentence = preprocess( inSentence, language )
 
   switch language
    case 'e'
+    % Special handlings for English
     outSentence = regexprep(outSentence, '''', ' '' ');
     outSentence = regexprep(outSentence, '(\S+s)''\s', ' $1 '' ');
     outSentence = regexprep(outSentence, '''s', ' ''s ');
    case 'f'
+    % Special handlings for French
     outSentence = regexprep(outSentence, '\sl''', ' l'' ');
     outSentence = regexprep(outSentence, '\s(\S'')', ' $1 ');
     outSentence = regexprep(outSentence, '\squ''', ' qu'' ');
@@ -71,6 +75,7 @@ function outSentence = preprocess( inSentence, language )
     outSentence = regexprep(outSentence, '(\S+'')il\s', ' $1 il ');
   end
 
+  % Trim whitespaces down 
   outSentence = regexprep(outSentence, '\s+', ' ');
   outSentence = strtrim(outSentence);
 
