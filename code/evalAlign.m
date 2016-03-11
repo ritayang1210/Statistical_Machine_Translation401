@@ -46,7 +46,7 @@ candidates_2 = textread(testFileRef_2, '%s','delimiter','\n');
 % add BlueMix code here 
 for l = 1:length(fres)
     fre =  preprocess(fres{l}, 'f');
-    candidate = decode2(fre, LME, AMFE, lmtype, delta, vocabSize));
+    candidate = decode2(fre, LME, AMFE, lmtype, delta, vocabSize);
     candidate = strsplit(' ', candidate);
     candidate = candidate(2:length(candidate) - 1);
     can_length = length(candidate);
