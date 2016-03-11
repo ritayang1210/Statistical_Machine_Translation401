@@ -95,7 +95,7 @@ for l = 1:length(fres)
         BLEU = BLEU * (p{n} ^ (1 / N))
     end
 
-    disp(['BLEU score for sentence{', l, '}: ', num2str(BLEU)]);
+    disp(['BLEU score for sentence{', fres{l}, '}: ', num2str(BLEU)]);
 end
 
 
