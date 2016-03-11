@@ -59,7 +59,6 @@ end
 % sentence 
 
 frenchWords  = strsplit(' ', french );
-frenchWords = frenchWords(~cellfun(@isempty, frenchWords));
 englishWords = cell(N, length(frenchWords));
 scores       = zeros(N, length(frenchWords));
 

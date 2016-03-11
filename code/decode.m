@@ -21,7 +21,6 @@ function english = decode( french, LM, AM, lmtype, delta, vocabSize )
   % We initially assume that the english sentence has as many words as the french sentence 
   % and that the i^th french word translates to the i^th english word. 
   frenchWords = strsplit(' ', french );
-  frenchWords = frenchWords(~cellfun(@isempty, frenchWords));
   englishWords = cell(1, length(frenchWords));
   
   

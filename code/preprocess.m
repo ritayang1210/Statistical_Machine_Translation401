@@ -69,8 +69,10 @@ function outSentence = preprocess( inSentence, language )
     outSentence = regexprep(outSentence, '\squ''', ' qu'' ');
     outSentence = regexprep(outSentence, '(\S+'')on\s', ' $1 on ');
     outSentence = regexprep(outSentence, '(\S+'')il\s', ' $1 il ');
-
   end
+
+  outSentence = regexprep(outSentence, '\s+', ' ');
+  outSentence = strtrim(outSentence);
 
   % change unpleasant characters to codes that can be keys in dictionaries
   outSentence = convertSymbols( outSentence );
