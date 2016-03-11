@@ -15,8 +15,8 @@ fn_LMF       = 'fn_LMF.mat';
 lm_type      = '';
 delta        = 0.0;
 vocabSize    = 0.0; 
-numSentences = 30000;
-N = 3;
+numSentences = 1000;
+N = 1;
 
 % Train your language models. This is task 2 which makes use of task 1
 % LME = lm_train( trainDir, 'e', fn_LME );
@@ -28,7 +28,7 @@ LMF = LMF.LM;
 
 % Train your alignment model of French, given English 
 % AMFE = align_ibm1( trainDir, numSentences, 10 );
-AMFE = load('AM_30000_10.mat');
+AMFE = load('AM_1000_10.mat');
 AMFE = AMFE.AM;
 % ... TODO: more 
 
