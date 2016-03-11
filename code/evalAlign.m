@@ -12,6 +12,7 @@ testFileRef_1 = [testDir, '/Task5.e'];
 testFileRef_2 = [testDir, '/Task5.google.e'];
 fn_LME       = 'fn_LME.mat';
 fn_LMF       = 'fn_LMF.mat';
+am_FE        = 'am_FE.mat';
 lm_type      = '';
 delta        = 0.0;
 vocabSize    = 0.0; 
@@ -19,17 +20,17 @@ numSentences = 1000;
 N = 3;
 
 % Train your language models. This is task 2 which makes use of task 1
-% LME = lm_train( trainDir, 'e', fn_LME );
-% LMF = lm_train( trainDir, 'f', fn_LMF );
-LME = load('LM_e.mat');
-LME = LME.LM;
-LMF = load('LM_f.mat');
-LMF = LMF.LM;
+LME = lm_train( trainDir, 'e', fn_LME );
+LMF = lm_train( trainDir, 'f', fn_LMF );
+% LME = load('LM_e.mat');
+% LME = LME.LM;
+% LMF = load('LM_f.mat');
+% LMF = LMF.LM;
 
 % Train your alignment model of French, given English 
-% AMFE = align_ibm1( trainDir, numSentences, 10 );
-AMFE = load('AM_1000_10.mat');
-AMFE = AMFE.AM;
+AMFE = align_ibm1( trainDir, numSentences, 10, am_FE);
+% AMFE = load('AM_1000_10.mat');
+% AMFE = AMFE.AM;
 % ... TODO: more 
 
 % TODO: a bit more work to grab the English and French sentences. 
