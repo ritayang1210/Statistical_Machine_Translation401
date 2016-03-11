@@ -16,7 +16,7 @@ lm_type      = '';
 delta        = 0.0;
 vocabSize    = 0.0; 
 numSentences = 1000;
-N = 2;
+N = 3;
 
 % Train your language models. This is task 2 which makes use of task 1
 % LME = lm_train( trainDir, 'e', fn_LME );
